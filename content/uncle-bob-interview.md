@@ -1,0 +1,1 @@
+/mnt/c/Users/Rick/OneDrive/logseq documents/pages/uncle-bob-interview.md
