@@ -1,18 +1,15 @@
-# Quartz v4
+# Quartz v4 with giscus
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+My personal Quartz v4 configuration with giscus integrated.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
-Quartz v4 features a from-the-ground rewrite focusing on end-user extensibility and ease-of-use.
+## Changes
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+1. original Footer replaced by new component Links and moved to the right pane 
+2. base.scss sidebar flex-wrap changed in order to support Links displayed properly on mobile version
+3. original Footer replaced with Comments component which integrated Quartz with giscus
+4. giscus integrated with Quartz theme change event so that the comment section's theme will change accordingly when Quartz switching between light/dark mode
+5. add giscus.json to prevent comment from blog being abused
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+To see the changes, please refer to this commit [feat: integrate giscus for comment system](https://github.com/rickliujh/techblog/commit/3a63084fc7643367adf99f0e1133672f791bd25b)
 
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+Feel free to fork the repository if you want to use giscus with Quartz.
