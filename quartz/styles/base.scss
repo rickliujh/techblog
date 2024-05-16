@@ -163,6 +163,7 @@ a {
       position: fixed;
       @media all and (max-width: $fullPageWidth) {
         position: initial;
+        flex-warp: wrap;
         flex-direction: row;
         padding: 0;
         width: initial;
