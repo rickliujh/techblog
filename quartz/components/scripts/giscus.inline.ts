@@ -20,7 +20,7 @@ function changeTheme(dark) {
   sendMessage({ setConfig: { theme: dark? darkTheme : lightTheme } })
 }
 
-function notMainPage(url) {
+function notMainPage(detail) {
   return detail.url !== "index"
 }
 
@@ -54,7 +54,7 @@ document.addEventListener("nav", ({detail}) => {
   toggleSwitch.addEventListener("change", onThemeToggle)
   window.addCleanup(() => toggleSwitch.removeEventListener("change", onThemeToggle))
 
-  if (notMainPage()) {
+  if (notMainPage(detail)) {
     loadComments()
     onThemeToggle()
   }
