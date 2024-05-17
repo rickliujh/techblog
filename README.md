@@ -12,7 +12,7 @@ My personal Quartz v4 configuration with giscus integrated.
 
 To see the changes, please refer to this commit [feat: integrate giscus for comment system](https://github.com/rickliujh/techblog/commit/3a63084fc7643367adf99f0e1133672f791bd25b)
 
-## New Comments
+## Custom Components
 ### Comments
 Comments component with its inline script `giscus.inline.ts` is responsible to integrate with giscus system and loading comments by leaving a hook `<div>` element with class `giscus` as well as align giscus theme with blog darkmode switching.
 
@@ -43,5 +43,11 @@ ctl.sh is a shell script tool that helps you using quartz cli without install `n
    (3) quartz | q => run any quartz support sub commands
 ```
 As the instruction of the menu you can use `p` to run a local server to preview, equals to `npx quartz build --serve`, sop to update blog context but not update quartz, and any other command available for quartz cli is available in `ctl.sh` by using command `bash ctl.sh quartz [quartz sub-command]`.
+
+> [!warning]
+> To be able to use ctl.sh you have to make sure three things:
+> - you local environment are able to use git to communicate with github repository
+> - the .ssh/ in your home directory is configured properly for purpose above
+> - the repository has specified user.name and user.email in order to run inside of container environment which don't have global gitconfig setup
 
 Feel free to fork the repository if you want to use giscus with Quartz.
