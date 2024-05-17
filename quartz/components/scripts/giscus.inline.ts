@@ -1,4 +1,5 @@
-let firstTime = true
+const lightTheme = "noborder_light"
+const darkTheme = "noborder_dark"
 
 function sendMessage<T>(message: T) {
   const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
@@ -16,11 +17,15 @@ function changeTerm(url) {
 }
 
 function changeTheme(dark) {
-  sendMessage({ setConfig: { theme: dark? "noborder_dark":"noborder_light"} })
+  sendMessage({ setConfig: { theme: dark? darkTheme : lightTheme } })
+}
+
+function notMainPage(url) {
+  return detail.url !== "index"
 }
 
 function loadComments() {
-  const toggleSwitch = document.querySelector("#darkmode-toggle") as HTMLInputElement
+  const darkMode = (document.querySelector("#darkmode-toggle") as HTMLInputElement).checked
   const script = document.createElement("script");
 
   script.type = "text/javascript"
@@ -35,27 +40,23 @@ function loadComments() {
   script.setAttribute("data-reactions-enabled", "1")
   script.setAttribute("data-emit-metadata", "0")
   script.setAttribute("data-input-position", "top")
-  script.setAttribute("data-theme", toggleSwitch.checked? "noborder_dark":"noborder_light")
+  script.setAttribute("data-theme", darkMode ? darkTheme : lightTheme)
   script.setAttribute("data-lang", "en")
   script.setAttribute("crossorigin", "anonymous")
   script.setAttribute("data-loading", "lazy")
 
   document.body.appendChild(script);
-  console.log("appended")
 }
 
 
 document.addEventListener("nav", ({detail}) => {
-  if (firstTime) {
-    const toggleSwitch = document.querySelector("#darkmode-toggle") as HTMLInputElement
-    toggleSwitch.addEventListener("change", onThemeToggle)
-    window.addCleanup(() => toggleSwitch.removeEventListener("change", onThemeToggle))
+  const toggleSwitch = document.querySelector("#darkmode-toggle") as HTMLInputElement
+  toggleSwitch.addEventListener("change", onThemeToggle)
+  window.addCleanup(() => toggleSwitch.removeEventListener("change", onThemeToggle))
 
-    if (detail.url !== "index") {
-      loadComments()
-    }
+  if (notMainPage()) {
+    loadComments()
+    onThemeToggle()
   }
-
-  changeTerm(detail.url)
 })
 
