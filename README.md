@@ -20,7 +20,7 @@ It's doing so by listening event `nav` on window and custom event `change` on To
 
 It will ignore `index` which is main page url when `nav` event fired so that the main page of the blog will not shows comments.
 
-See, (giscus.inline.ts)[https://github.com/rickliujh/techblog/blob/v4/quartz/components/scripts/giscus.inline.ts], and (Comments.tsx)[https://github.com/rickliujh/techblog/blob/v4/quartz/components/Comments.tsx].
+See, [giscus.inline.ts](https://github.com/rickliujh/techblog/blob/v4/quartz/components/scripts/giscus.inline.ts), and [Comments.tsx](https://github.com/rickliujh/techblog/blob/v4/quartz/components/Comments.tsx).
 
 ### Links
 Links component is a modified Footer component optimized for displaying links on right side pane due to the comments occupied the end of section of the page.
