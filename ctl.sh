@@ -30,7 +30,7 @@ quartz() {
         -v $(pwd):/home/node/quartz -v ~/.ssh:/home/node/.ssh \
         -w /home/node/quartz \
         node:$NODE_VERSION \
-        /bin/bash -c "yarn quartz $@"
+        yarn quartz $@
 }
 
 show_menu() {
