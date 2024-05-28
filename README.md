@@ -10,7 +10,7 @@ My personal Quartz v4 configuration with giscus integrated.
 4. giscus integrated with Quartz theme change event so that the comment section's theme will change accordingly when Quartz switching between light/dark mode
 5. add giscus.json to prevent comment from blog being abused
 
-To see the changes, please refer to this commit [feat: integrate giscus for comment system](https://github.com/rickliujh/techblog/commit/3a63084fc7643367adf99f0e1133672f791bd25b)
+To see the changes, please refer to [branch: giscus](https://github.com/rickliujh/techblog/compare/v4...giscus)
 
 ## Custom Components
 ### Comments
