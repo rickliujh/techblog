@@ -9,6 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Rick L.",
+    pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
@@ -18,6 +19,7 @@ const config: QuartzConfig = {
     baseUrl: "rickliujh.github.io/techblog",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
+    generateSocialImages: false,
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -36,6 +38,7 @@ const config: QuartzConfig = {
           secondary: "#218667",
           tertiary: "#158e67",
           highlight: "rgba(21, 142, 103, 0.15)",
+          textHighlight: "#fff23688",
         },
         darkMode: {
           light: "#161618",
@@ -46,6 +49,7 @@ const config: QuartzConfig = {
           secondary: "#218667",
           tertiary: "#158e67",
           highlight: "rgba(21, 142, 103, 0.15)",
+          textHighlight: "#b3aa0288",
         },
       },
     },
@@ -56,7 +60,6 @@ const config: QuartzConfig = {
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "filesystem"],
       }),
-      Plugin.Latex({ renderEngine: "katex" }),
       Plugin.SyntaxHighlighting({
         theme: {
           light: "github-light",
@@ -69,6 +72,7 @@ const config: QuartzConfig = {
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
+      Plugin.Latex({ renderEngine: "katex" }),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
