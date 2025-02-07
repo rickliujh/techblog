@@ -88,7 +88,7 @@ If you generalize this use case it will apply to any case that needs a two dimen
   
   // in the heap
   int **_2d_arr_heap = malloc(sizeof(size_t) * 5);
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 2; i++) {
 	    _2d_arr_heap[i] = calloc(5, sizeof(int));
   }
   for (int i = 0; i < 2; i++) {
@@ -118,7 +118,7 @@ If you generalize this use case it will apply to any case that needs a two dimen
 If you understand the first case, you might confused when you first time saw this coming.
 
 ```c
-void allocate(size_t **p, size_t size) {
+void allocate(void **p, size_t size) {
 	*p = malloc(size);
 }
 
