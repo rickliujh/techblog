@@ -5,8 +5,30 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  footer: Component.Comments(), 
-  afterBody: [],
+  afterBody: [
+    Component.Comments({
+      provider: 'giscus',
+      options: {
+        repo: 'rickliujh/techblog',
+        repoId: 'R_kgDOL6VQ_Q',
+        category: 'Announcements',
+        categoryId: 'DIC_kwDOL6VQ_c4CfaND',
+        mapping: 'pathname',
+        inputPosition: 'top',
+        reactionsEnabled: true,
+        strict: true,
+        themeUrl: 'https://giscus.app/themes/', 
+        lightTheme: 'noborder_light', 
+        darkTheme: 'noborder_dark',
+      }
+    }),
+  ],
+  footer: Component.Footer({
+    links: {
+      GitHub: "https://github.com/rickliujh",
+      "Discord Community": "https://discord.gg/cRFFHYye7t",
+    },
+  }),
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -23,12 +45,6 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer()),
-    Component.Links({
-        links: {
-          GitHub: "https://github.com/rickliujh",
-          "Discord Community": "https://discord.gg/cRFFHYye7t",
-        },
-    }),
   ],
   right: [
     Component.Graph(),

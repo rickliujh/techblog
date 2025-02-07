@@ -23,14 +23,22 @@ sync() {
     quartz sync $@
 }
 
-quartz() {
+node() {
     docker run \
         --rm \
         -u 1000:1000 \
         -v $(pwd):/home/node/quartz -v ~/.ssh:/home/node/.ssh \
         -w /home/node/quartz \
         node:$NODE_VERSION \
-        yarn quartz $@
+        $@
+}
+
+init() {
+    node yarn install
+}
+
+quartz() {
+    node yarn quartz $@
 }
 
 show_menu() {
