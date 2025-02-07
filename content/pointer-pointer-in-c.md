@@ -72,43 +72,47 @@ We all know that in C we don't have native string, but string is made of charact
 If we want to have a array of strings, it naturally comes to Pointer pointer.
 
 ```c
-  char *str1 = "this is a sentence.";
-  char *str2 = "this is another sentence.";
-  
-  char **str_arr = (char **)malloc(2 * sizeof(char *));
-  str_arr[0] = str1;
-  str_arr[1] = str2;
+char *str1 = "this is a sentence.";
+char *str2 = "this is another sentence.";
+
+char **str_arr = (char **)malloc(2 * sizeof(char *));
+str_arr[0] = str1;
+str_arr[1] = str2;
+
+free(str_arr);
 ```
 
 If you generalize this use case it will apply to any case that needs a two dimensional array -- because array is represented at a Pointer points to the beginning of the array, the two dimensional array is an array that stores Pointers that points to an array.
 
 ```c
-  // in the stack
-  int _2D_arr[2][2] = {{1, 2}, {1, 2}};
-  
-  // in the heap
-  int **_2d_arr_heap = malloc(sizeof(size_t) * 5);
-  for (int i = 0; i < 2; i++) {
-	    _2d_arr_heap[i] = calloc(5, sizeof(int));
-  }
-  for (int i = 0; i < 2; i++) {
-	    for (int j = 0; j < 2; j++) {
-		      _2d_arr_heap[i][j] = j + 1;
-	    }
-  }
-  // print
-  for (int i = 0; i < 2; i++) {
-	    for (int j = 0; j < 2; j++) {
-		      printf("%d ", _2d_arr_heap[i][j]);
-	    }
-	    printf("\n");
-  }
+// in the stack
+int _2D_arr[2][2] = {{1, 2}, {1, 2}};
+// in the heap
+int len_2darr = 2;
+int **_2d_arr_heap = malloc(sizeof(size_t) * len_2darr);
+for (int i = 0; i < len_2darr; i++) {
+    _2d_arr_heap[i] = calloc(len_2darr, sizeof(int));
+}
+for (int i = 0; i < len_2darr; i++) {
+    for (int j = 0; j < len_2darr; j++) {
+	_2d_arr_heap[i][j] = j + 1;
+    }
+}
+// print
+for (int i = 0; i < len_2darr; i++) {
+    for (int j = 0; j < len_2darr; j++) {
+	printf("%d ", _2d_arr_heap[i][j]);
+    }
+    printf("\n");
+}
 
-  // free mem
-  for (int i = 0; i < 2; i++) {
-	    free(_2d_arr_heap[i]);
-  }
-  free(_2d_arr_heap);
+// free memory
+for (int i = 0; i < len_2darr; i++) {
+    free(_2d_arr_heap[i]);
+}
+free(_2d_arr_heap);
+
+// ...
 ```
 
 *Hey, let me remind you that you have a friend call ChatGPT if you carious why I don't explain the code.*
@@ -119,24 +123,24 @@ If you understand the first case, you might confused when you first time saw thi
 
 ```c
 void allocate(void **p, size_t size) {
-	*p = malloc(size);
+    *p = malloc(size);
 }
 
 int main(void) {
-	int **ptr;
-	allocate((void *)ptr, sizeof(int) * 2);
-	// this is equivalent to:
-	// int *ptr
-	// allocate((void *)&ptr, sizeof(int) * 2);
-	
-	int *arr = *ptr;
-	arr[0] = 1;
-	arr[1] = 2;
-	
-	printf("first: %d, second: %d", arr[0], arr[1]);
-	free(*ptr);
+    int **ptr;
+    allocate((void *)ptr, sizeof(int) * 2);
+    // this is equivalent to:
+    // int *ptr
+    // allocate((void *)&ptr, sizeof(int) * 2);
+    
+    int *arr = *ptr;
+    arr[0] = 1;
+    arr[1] = 2;
+    
+    printf("first: %d, second: %d", arr[0], arr[1]);
+    free(*ptr);
 
-	// ...
+    // ...
 }
 ```
 
@@ -169,6 +173,4 @@ With that, we concluded this article.
 Phew, that's a hell out of the shit, isn't it? But you just understood something pretty deep and pretty advance you know it? Many so call 10 years programmer might still don't understand how it work. You will beat the hell out of them if you subscribe my blog. BTW, If you grandma didn't understand, tell her I said "remember to read it again!"
 
 I hope you have a wonderful day!
-
-Giggity
 
