@@ -50,6 +50,7 @@ show_menu() {
     echo -e "  \u001b[34;1m (2) sync --no-pull | sop => sync blog to remote repository but not update quartz \u001b[0m"
     echo -e "  \u001b[34;1m (3) quartz | q => run any quartz support sub commands \u001b[0m"
     echo -e "  \u001b[34;1m (4) dry => dry run to see what articles need update \u001b[0m"
+    echo -e "  \u001b[34;1m (5) synatc | sa => sync articles from obsidian vault to this blog \u001b[0m"
 }
 
 main() {
@@ -58,6 +59,7 @@ main() {
     p) preview;;
     sop) sync --no-pull;;
     dry) DRY=true python3 article-manager.py;;
+    synatc | sa) DRY=false python3 article-manager.py;;
     *) "$@";;
     esac
     exit 0
