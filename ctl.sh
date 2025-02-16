@@ -20,6 +20,7 @@ preview() {
 # --push or --no-push: whether to push updates to your GitHub fork of Quartz
 # --pull or --no-pull: whether to try and pull in any updates from your GitHub fork (i.e. from other devices) before pushing
 sync() {
+    DRY=false python3 article-manager.py
     quartz sync $@
 }
 
@@ -48,6 +49,7 @@ show_menu() {
     echo -e "  \u001b[34;1m (1) sync => sync blog to remote repository, or update quartz \u001b[0m"
     echo -e "  \u001b[34;1m (2) sync --no-pull | sop => sync blog to remote repository but not update quartz \u001b[0m"
     echo -e "  \u001b[34;1m (3) quartz | q => run any quartz support sub commands \u001b[0m"
+    echo -e "  \u001b[34;1m (4) dry => dry run to see what articles need update \u001b[0m"
 }
 
 main() {
@@ -55,6 +57,7 @@ main() {
     -m | --menu | m | menu | show_menu) show_menu ;;
     p) preview;;
     sop) sync --no-pull;;
+    dry) DRY=true python3 article-manager.py;;
     *) "$@";;
     esac
     exit 0
