@@ -175,5 +175,3 @@ With that, we concluded this article.
 Phew, that's a hell out of the shit, isn't it? But you just understood something pretty deep and pretty advance you know it? Many so call 10 years programmer might still don't understand how it work. You will beat the hell out of them if you subscribe my blog. BTW, If you grandma didn't understand, tell her I said "remember to read it again!"
 
 I hope you have a wonderful day!
-
-
