@@ -1,5 +1,8 @@
 ---
 title: Welcome to Rick's Tech Blog
+publish: true
+id: 202400000000
+comments: false
 ---
 
 Hi, I'm Rick. A 6 years experienced software engineer, I've worked for bigtech companies as well as startups. I love coding, currently reading [SCIP](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html) and learning Rust language.

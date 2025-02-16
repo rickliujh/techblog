@@ -1,0 +1,23 @@
+{
+    "202403170000": {
+        "publish": true,
+        "fname": "uncle-bob-interview.md",
+        "title": "Rollup of primegen's interview with uncle bob",
+        "id": "202403170000",
+        "hash": "a4a36590cdee1a7aed5a0f7c511a3308c26ab083",
+        "action": "\u001b[92m+\u001b[0m"
+    },
+    "202502070000": {
+        "publish": true,
+        "fname": "pointer-pointer-in-c.md",
+        "title": "Advance Pointer - Pointer Pointer",
+        "id": "202502070000",
+        "images": [
+            "chain-of-command-20250207185258.png",
+            "stack-dump-1-20250207174834.png",
+            "stack-dump-2-20250207181054.png"
+        ],
+        "hash": "d3bdb26395da42d814461fa2aae450a5e69ec83e",
+        "action": "\u001b[92m+\u001b[0m"
+    }
+}
