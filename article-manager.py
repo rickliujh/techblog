@@ -19,21 +19,24 @@ OBVAULT_ASSETS = os .getenv("OBVAULT_ASSETS", "/mnt/c/Users/Rick/OneDrive/logseq
 #   - images
 #   - content hash
 # 2. mark the article if publish is true
-# 3. compare marked article hash with lockfile, update article if changed
+# 3. compare marked article hash with lockfile
 #       in the lockfile:
 #       - if id exist
 #           - allow to publish, and content hash changed, update
 #           - disallow to publish, delete
-#       - if id do not exist, publish as new article
+#       - if id does not exists 
+#           - allow to publish, release the new article
+#           - disallow to publish, disregard
 # 4. copy article to .content
 # 5. copy all images to static-{{properties.title}} folder under ./content if has any
 # 6. next article
 #
 # Requirements:
 # 1. script should be able to dry run
-# 2. no 3th-part dependencies
+# 2. no 3th-party dependencies
 # 3. should not change article during the process
-# 4. Non declared "publish" equals false
+# 4. non declared "publish" equals false
+# 5. interrupting process should not cause state of lockfile loss
 
 
 FILE_EXTENSION = ".md"
@@ -76,13 +79,13 @@ except FileNotFoundError as e:
 # process individual file
 for fname in os.listdir(OBVAULT_ARTICELS):
     if not fname.strip().endswith(FILE_EXTENSION): 
-        print(f"'{fname}' skipped, not a markdown file")
+        print(f"'{fname}' skipped: not a markdown file")
         continue
 
     with open(os.path.join(OBVAULT_ARTICELS, fname), "r") as f:
         print(f"process '{fname}'...")
         if not f.readline().strip().startswith(PROPERTY_DELIMITER):
-            print("file doesn't follow property format, skipped")
+            print("file skipped: doesn't follow property format")
             continue
 
         # retrieve properties
@@ -90,13 +93,15 @@ for fname in os.listdir(OBVAULT_ARTICELS):
         line = f.readline().strip()
         while not line.startswith(PROPERTY_DELIMITER):
             field = line.split(":", 1)
-            h = RELEVANT_PROPERTY_HANDLER.get(field[0], None)
+            key = field[0].strip()
+            h = RELEVANT_PROPERTY_HANDLER.get(key, None)
             if h:
-               meta[field[0]] = h(field[1])
+               val = field[1].strip()
+               meta[key] = h(val)
             line = f.readline().strip()
         
         # retrieve images and content hash of the article
-        if meta.get("publish"):
+        if meta.get("publish") is True:
             # finds images of article and add to list
             while line := f.readline():            
                 res = REGEX.search(line.strip())
@@ -115,7 +120,7 @@ for fname in os.listdir(OBVAULT_ARTICELS):
         # decides action to article
         id = meta.get("id", None)
         hash = meta.get("hash", None)
-        if meta["publish"]:
+        if meta["publish"] is True:
             if id not in lck:
                 meta.setdefault("action", Action.NEW)
             elif lck.get(id).get("hash", None) != hash:
@@ -128,6 +133,7 @@ for fname in os.listdir(OBVAULT_ARTICELS):
             ATCMETAARR.append(meta) 
 
 print("\n================================Dry Run Result================================\n")
+
 print(f"Articles ready to publish: {Action.NEW}, remove: {Action.DELETE}, update: {Action.UPDATE}\n")
 i = 1
 for at in ATCMETAARR:
@@ -137,7 +143,11 @@ for at in ATCMETAARR:
     print(f'images:{at.get("images",{})}')
     print(f'\n')
     i+=1
-print("==============================================================================\n")
+
+if len(ATCMETAARR) == 0:
+    print("nothing to update")
+
+print("\n==============================================================================\n")
 
 def apply():
     lckfnametemp = lckfname + ".tmp"
@@ -187,10 +197,7 @@ def apply():
 
 
 if not DRYRUN:
-    if len(ATCMETAARR) == 0:
-        print("nothing to update")
+    if "yes" == input("type yes if you want to apply the change:\n\n"):
+        apply()
     else:
-        if "yes" == input("type yes if you want to apply the change:\n\n"):
-            apply()
-        else:
-            print("operation abort")
+        print("operation abort")
