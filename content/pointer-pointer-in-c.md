@@ -30,7 +30,7 @@ Think of pointer is a **chain of command** in the military, Colonel don't direct
 
 ![[chain-of-command-20250207185258.png]]
 
-Everytime you use a `*` to create a pointer, you create a node in the chain of command that could be used later for manipulating something indirectly.
+Everytime you use a `*` to create a pointer, you create a node in the chain of command that could be used later for manipulating something indirectly. So, when you see `char * str`, it means a Pointer type points to a data its type is `char`.
 
 Why is pointer necessary?
 
@@ -40,9 +40,13 @@ Similarly, in the [[stack]] where the memory space is limited is not able to uph
 
 So we need a commander to hold all those large, long live, or dynamic growing bits. And that, my friends, is why we need a Pointer.
 
-Technically speaking, Pointer is very efficient, since it only store the address, as least in terms of memory. Depends on CPU's architecture, an address only needs few bits, for any x86 CPU, it can have 2^32 [[registers]], if we address/identify those register by number, then we need 32bit memory in order to cover all the possibly address of registers.
+Technically speaking, Pointer is very efficient, since it only store the address of the memory but not the data itself, as least in terms of memory copying (which happens a lot more than you think in the modern programming languages).
 
-And 32bit memory can hold any size of data from 1 bit to 1gb in the memory indirectly, so later we need to use that large data, we can access it by [[dereferencing]] the Pointer. Very efficient, doesn't it?
+> [!note]
+> When we talk about 32bit x86 CPU, 32bit means that we can have 2^32 addressable memory units. The size of smallest addressable memory unit is usually 1 byte, which allows it to address 2^32 bytes of memory (4 GB). But generally memory operations often work with 4 bytes alignment (natural "word" size for the 32bit processor, 8 bytes for 64bit CPU) for optimal performance.
+> See: [[memory-alignment]]
+
+And 32bit memory as a Pointer can hold any size of data from 1 bit to 1gb in the memory indirectly, so later we need to use that large data, we can access it by [[dereferencing]] the Pointer. Very efficient, doesn't it?
 
 ## Pointer Pointer
 
@@ -77,12 +81,18 @@ If we want to have a array of strings, it naturally comes to Pointer pointer.
 char *str1 = "this is a sentence.";
 char *str2 = "this is another sentence.";
 
+// sizeof returns the number of bytes of the type
 char **str_arr = (char **)malloc(2 * sizeof(char *));
 str_arr[0] = str1;
 str_arr[1] = str2;
 
 free(str_arr);
 ```
+
+> [!note]
+> Reading Pointer type from right to left begins at rightmost `*` before the name of variable will provide a clearer understanding.. For the example above, we can read it this way: `(char *) *str_arr`, which means:
+> 
+> *The `char **` is a Pointer type points to the data its type is `char *` , and `char *` is a form of representation of string in C.*
 
 If you generalize this use case it will apply to any case that needs a two dimensional array -- because array is represented at a Pointer points to the beginning of the array, the two dimensional array is an array that stores Pointers that points to an array.
 
